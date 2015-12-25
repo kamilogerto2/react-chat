@@ -1,7 +1,7 @@
 html,body {
   height: 100%;
   margin: 0;
-  background-image: url("http://localhost:81/es2015/view/assets/img/back.jpg");
+  background-image: url("http://localhost:81/es2015/react-chat/view/assets/img/back.jpg");
   background-attachment: fixed;
 }
 
@@ -13,19 +13,18 @@ html,body {
 }
 
 #content {
-  //background-image: url("http://localhost:81/es2015/view/assets/img/wallpaper.jpg");
+  //background-image: url("http://localhost:81/es2015/react-chat/view/assets/img/wallpaper.jpg");
   //background-attachment: fixed;
+  background-color: rgba(0,0,0,0.3);
   width: 100%;
   min-height: 100%;
   text-align: center;
-  padding-top: 100px;
 
   .chat-window {
     width: 60%;
-    height: 300px;
+    height: 500px;
     vertical-align: middle;
     margin: 0 auto;
-    padding-top:40px;
     //background-color: rgba(255,0,0,0.1);
   }
   .chat-window {
@@ -41,7 +40,7 @@ html,body {
     text-align: left;
     border-radius: 20px;
     width: 90%;
-    height: 250px;
+    height: 500px;
     overflow-y: auto;
     margin: 0 auto !important;
     background-color: rgba(255,255,255,0.6);

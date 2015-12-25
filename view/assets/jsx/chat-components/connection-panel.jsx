@@ -2,6 +2,7 @@ const FlatButton = require('material-ui/lib/flat-button');
 const Dialog = require('material-ui/lib/dialog');
 const TextField = require('material-ui/lib/text-field');
 const RaisedButton = require('material-ui/lib/raised-button');
+const Snackbar = require('material-ui/lib/snackbar');
 var React = require('react');
 var sha1 = require('sha1');
 
@@ -12,16 +13,18 @@ var ConnectionPanel = React.createClass({
             conButtonState: false};
     },
     connectToChat () {
-        this.props.socket.connect();
-        if(this.props.socket.connected) {
+        if(this.props.socket.connect()) {
             this.setState({showDialogStandardActions: true});
             this.setState({liked: 1, disButtonState: false, conButtonState: true});
-            this.props.onSubmit();
+            this.props.onSubmit(false);
+        } else {
+            this._snackBar.show();
         }
     },
     disconnectFromChat () {
         this.props.socket.disconnect();
-        this.setState({liked: 0});
+        this.setState({liked: 0, disButtonState: true, conButtonState: false});
+        this.props.onSubmit(true);
     },
     _handleCustomDialogCancel () {
         this.setState({showDialogStandardActions: false});
@@ -55,9 +58,14 @@ var ConnectionPanel = React.createClass({
                     <TextField hintText="Username" floatingLabelText="Username" ref={component => this._userInput = component}/>
                     <TextField hintText="Password" type="password" floatingLabelText="Password" ref={component => this._passwordInput = component}/>
                 </Dialog>
+                <Snackbar
+                    ref={component => this._snackBar = component}
+                    message="Something went wrong."
+                    action="undo"
+                    autoHideDuration={2000}/>
             </div>
         )
     }
-})
+});
 
 module.exports = ConnectionPanel;

@@ -16,8 +16,10 @@ injectTapEventPlugin();
 
 var Chat = React.createClass({
     getInitialState: function getInitialState() {
-        return { liked: false, messages: [], nick: '', showDialogStandardActions: false, disButtonState: true,
-            conButtonState: false };
+        return {
+            liked: false, messages: [], nick: '', showDialogStandardActions: false, disButtonState: true,
+            conButtonState: false
+        };
     },
     renderMessage: function renderMessage(msg) {
         var messages = this.state.messages;
@@ -34,16 +36,15 @@ var Chat = React.createClass({
         socket.emit('message', message);
         this._textInput.clearValue();
     },
-    _handleInputChange: function _handleInputChange(e, value) {
+    _handleInputChange: function _handleInputChange(e) {
         this.setState({ message: e.target.value });
     },
-    _activeSendButton: function _activeSendButton() {
-        this.setState({ disButtonState: false });
+    _activeSendButton: function _activeSendButton(value) {
+        this.setState({ disButtonState: value });
     },
     render: function render() {
         var _this = this;
 
-        var text = this.state.liked ? 'connected' : 'disconnected';
         var messages = this.state.messages;
 
         return React.createElement(
@@ -63,8 +64,10 @@ var Chat = React.createClass({
                 { className: 'message-panel' },
                 React.createElement(TextField, { hintText: 'Message', ref: function ref(component) {
                         return _this._textInput = component;
-                    }, onChange: this._handleInputChange }),
-                React.createElement(RaisedButton, { label: 'Send', disabled: this.state.disButtonState, secondary: true, onClick: this.sendToChat })
+                    },
+                    onChange: this._handleInputChange }),
+                React.createElement(RaisedButton, { label: 'Send', disabled: this.state.disButtonState, secondary: true,
+                    onClick: this.sendToChat })
             ),
             React.createElement(ConnectionPanel, { socket: socket, onSubmit: this._activeSendButton })
         );

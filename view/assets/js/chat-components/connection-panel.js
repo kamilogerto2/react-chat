@@ -4,6 +4,7 @@ var FlatButton = require('material-ui/lib/flat-button');
 var Dialog = require('material-ui/lib/dialog');
 var TextField = require('material-ui/lib/text-field');
 var RaisedButton = require('material-ui/lib/raised-button');
+var Snackbar = require('material-ui/lib/snackbar');
 var React = require('react');
 var sha1 = require('sha1');
 
@@ -13,16 +14,18 @@ var ConnectionPanel = React.createClass({
             conButtonState: false };
     },
     connectToChat: function connectToChat() {
-        this.props.socket.connect();
-        if (this.props.socket.connected) {
+        if (this.props.socket.connect()) {
             this.setState({ showDialogStandardActions: true });
             this.setState({ liked: 1, disButtonState: false, conButtonState: true });
-            this.props.onSubmit();
+            this.props.onSubmit(false);
+        } else {
+            this._snackBar.show();
         }
     },
     disconnectFromChat: function disconnectFromChat() {
         this.props.socket.disconnect();
-        this.setState({ liked: 0 });
+        this.setState({ liked: 0, disButtonState: true, conButtonState: false });
+        this.props.onSubmit(true);
     },
     _handleCustomDialogCancel: function _handleCustomDialogCancel() {
         this.setState({ showDialogStandardActions: false });
@@ -63,7 +66,14 @@ var ConnectionPanel = React.createClass({
                 React.createElement(TextField, { hintText: 'Password', type: 'password', floatingLabelText: 'Password', ref: function ref(component) {
                         return _this._passwordInput = component;
                     } })
-            )
+            ),
+            React.createElement(Snackbar, {
+                ref: function ref(component) {
+                    return _this._snackBar = component;
+                },
+                message: 'Something went wrong.',
+                action: 'undo',
+                autoHideDuration: 2000 })
         );
     }
 });
