@@ -1,0 +1,37 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background-image: url("http://localhost:81/es2015/view/assets/img/back.jpg");
+  background-attachment: fixed; }
+
+.intro {
+  width: 100%;
+  min-height: 100%; }
+
+#content {
+  width: 100%;
+  min-height: 100%;
+  text-align: center;
+  padding-top: 100px; }
+  #content .chat-window {
+    width: 60%;
+    height: 300px;
+    vertical-align: middle;
+    margin: 0 auto;
+    padding-top: 40px; }
+  #content .chat-window {
+    padding: 20px 0; }
+  #content .buttons-panel, #content .notes-panel, #content .message-panel {
+    width: 60%;
+    height: 50px;
+    margin: 0 auto; }
+  #content .grid-list {
+    text-align: left;
+    border-radius: 20px;
+    width: 90%;
+    height: 250px;
+    overflow-y: auto;
+    margin: 0 auto !important;
+    background-color: rgba(255, 255, 255, 0.6); }
+
+/*# sourceMappingURL=style.css.map */
