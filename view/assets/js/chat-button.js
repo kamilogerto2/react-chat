@@ -10,6 +10,7 @@ var MessageList = require('./chat-components/message-list');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var sha1 = require('sha1');
+var jQuery = require('jquery');
 
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
@@ -74,5 +75,19 @@ var Chat = React.createClass({
     }
 });
 
+var GoToChatButton = React.createClass({
+    render: function render() {
+        return React.createElement(RaisedButton, { label: 'Go to Chat section', secondary: true, className: 'go-to-content', linkButton: true });
+    }
+});
+
 ReactDOM.render(React.createElement(Chat, null), document.getElementById('content'));
+
+ReactDOM.render(React.createElement(GoToChatButton, null), document.getElementById('go-chat-button'));
+
+(function ($) {
+    $(".go-to-content").click(function () {
+        $("html, body").animate({ scrollTop: $('#content').offset().top }, 1000);
+    });
+})(jQuery);
 //# sourceMappingURL=chat-button.js.map
